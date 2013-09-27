@@ -19,8 +19,8 @@ namespace WindowsGame1
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D square;
-        Rectangle CheckerBoardWhite = new Rectangle(0, 0, 15, 15);
-        Rectangle CheckerBoardBlack = new Rectangle(15, 0, 15, 15);
+       // Rectangle CheckerBoard = new Rectangle(0, 0, 15, 15);
+       // Rectangle CheckerBoardBlack = new Rectangle(15, 0, 15, 15);
 
         public Game1()
         {
@@ -80,12 +80,26 @@ namespace WindowsGame1
         }
 
         public void DrawCheckerBoard()
-{
-    for (int i = 0; i < 100; i++)
+        {
+    int X = 0;
+    int Y = 0;
+    for (int i = 0; i < 10000; i++)
       {
+        Rectangle CheckerBoard = new Rectangle(X, Y, 15, 15);
         spriteBatch.Begin();
-        spriteBatch.Draw(square, CheckerBoardWhite, Color.White);
-        spriteBatch.Draw(square, CheckerBoardBlack, Color.Black);
+
+        if (i % 2 == 0)
+        {
+            spriteBatch.Draw(square, CheckerBoard, Color.White);
+        }
+        else
+            spriteBatch.Draw(square, CheckerBoard, Color.Black);
+        X += 15;
+        if (i % 53 == 52)
+        {
+            Y += 15;
+            X = 0;
+        }
         spriteBatch.End();
       
       }
@@ -96,7 +110,7 @@ namespace WindowsGame1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Gray);
+            GraphicsDevice.Clear(Color.Green);
 
             // TODO: Add your drawing code here
 
