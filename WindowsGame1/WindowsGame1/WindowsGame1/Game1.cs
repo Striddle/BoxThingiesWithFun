@@ -1,4 +1,4 @@
-using System;
+  using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -81,28 +81,48 @@ namespace WindowsGame1
 
         public void DrawCheckerBoard()
         {
-    int X = 0;
-    int Y = 0;
-    for (int i = 0; i < 10000; i++)
-      {
-        Rectangle CheckerBoard = new Rectangle(X, Y, 15, 15);
-        spriteBatch.Begin();
+            int X = 0;
+            int Y = 0;
+            for (int i = 0; i < 10000; i++)
+            {
+                Rectangle CheckerBoard = new Rectangle(X, Y, 15, 15);
+                spriteBatch.Begin();
 
-        if (i % 2 == 0)
-        {
-            spriteBatch.Draw(square, CheckerBoard, Color.White);
+                if (i % 2 == 0)
+                {
+                    spriteBatch.Draw(square, CheckerBoard, Color.White);
+                }
+                else
+                    spriteBatch.Draw(square, CheckerBoard, Color.Black);
+                X += 15;
+                if (i % 53 == 52)
+                {
+                    Y += 15;
+                    X = 0;
+                }
+                spriteBatch.End();
+
+            }
         }
-        else
-            spriteBatch.Draw(square, CheckerBoard, Color.Black);
-        X += 15;
-        if (i % 53 == 52)
+
+            public void DrawCrazySquares()
         {
-            Y += 15;
-            X = 0;
+             Random random = new Random();
+      
+        
+
+        spriteBatch.Begin();
+        for (int i = 0; i < 100; i++)
+        {
+            int RandX = random.Next(0, 800);
+            int RandY = random.Next(0, 600);
+            Rectangle CrazySquares = new Rectangle(RandX, RandY, i + 10, i + 10);
+            spriteBatch.Draw(square, CrazySquares, Color.Black);
         }
         spriteBatch.End();
       
-      }
+      
+
 }
         /// <summary>
         /// This is called when the game should draw itself.
@@ -110,11 +130,13 @@ namespace WindowsGame1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Green);
+            GraphicsDevice.Clear(Color.White);
 
             // TODO: Add your drawing code here
 
-            DrawCheckerBoard();
+            //DrawCheckerBoard();
+            DrawCrazySquares();
+            //DrawRainbow();
 
 
             base.Draw(gameTime);
