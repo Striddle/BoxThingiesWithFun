@@ -19,8 +19,10 @@ namespace WindowsGame1
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D square;
+        Rectangle[] CrazyTile = new Rectangle[100];
        // Rectangle CheckerBoard = new Rectangle(0, 0, 15, 15);
        // Rectangle CheckerBoardBlack = new Rectangle(15, 0, 15, 15);
+        int CurrentScreen = 1;
 
         public Game1()
         {
@@ -37,8 +39,13 @@ namespace WindowsGame1
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            Random random = new Random();
 
-            base.Initialize();
+            for (int i = 0; i < 100; i++)
+            {
+                CrazyTile[i] = new Rectangle(random.Next(0, 800), random.Next(0, 600), random.Next(15, 100), random.Next(15, 100));
+            }
+                base.Initialize();
         }
 
         /// <summary>
@@ -75,6 +82,24 @@ namespace WindowsGame1
                 this.Exit();
 
             // TODO: Add your update logic here
+            KeyboardState kb = Keyboard.GetState();
+
+            if (kb.IsKeyDown(Keys.D1))
+            {
+                CurrentScreen = 1;
+            }
+            else if (kb.IsKeyDown(Keys.D2))
+            {
+                CurrentScreen = 2;
+            }
+            else if (kb.IsKeyDown(Keys.D3))
+            {
+                CurrentScreen = 3;
+            }
+            else if (kb.IsKeyDown(Keys.D4))
+            {
+                CurrentScreen = 4;
+            }
 
             base.Update(gameTime);
         }
@@ -107,17 +132,17 @@ namespace WindowsGame1
 
             public void DrawCrazySquares()
         {
-             Random random = new Random();
-      
-        
+            Random random = new Random();
+            spriteBatch.Begin();
+            
 
-        spriteBatch.Begin();
+        
         for (int i = 0; i < 100; i++)
         {
-            int RandX = random.Next(0, 800);
-            int RandY = random.Next(0, 600);
-            Rectangle CrazySquares = new Rectangle(RandX, RandY, i + 10, i + 10);
-            spriteBatch.Draw(square, CrazySquares, Color.Black);
+            spriteBatch.Draw(square, CrazyTile[i], Color.Firebrick);
+
+            if(i % 2 == 0)
+                spriteBatch.Draw(square, CrazyTile[i], Color.OrangeRed);
         }
         spriteBatch.End();
       
@@ -133,11 +158,14 @@ namespace WindowsGame1
             GraphicsDevice.Clear(Color.White);
 
             // TODO: Add your drawing code here
+            switch (CurrentScreen)
+            {
 
-            //DrawCheckerBoard();
-            DrawCrazySquares();
-            //DrawRainbow();
-
+                case 1: DrawCheckerBoard(); break;
+                case 2: DrawCrazySquares(); break;
+                //case 3: DrawRainbow(); break;
+                //case 4: DrawBlankScreen(); break; 
+            }
 
             base.Draw(gameTime);
         }
