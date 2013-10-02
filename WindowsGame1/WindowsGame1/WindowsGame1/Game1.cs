@@ -145,10 +145,21 @@ namespace WindowsGame1
                 spriteBatch.Draw(square, CrazyTile[i], Color.OrangeRed);
         }
         spriteBatch.End();
-      
-      
+        }
 
-}
+
+            public void DrawRainbow()
+            {
+
+
+            }
+
+            public void DrawBlankScreen()
+            {
+
+
+            }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -163,8 +174,8 @@ namespace WindowsGame1
 
                 case 1: DrawCheckerBoard(); break;
                 case 2: DrawCrazySquares(); break;
-                //case 3: DrawRainbow(); break;
-                //case 4: DrawBlankScreen(); break; 
+                case 3: DrawRainbow(); break;
+                case 4: DrawBlankScreen(); break; 
             }
 
             base.Draw(gameTime);
